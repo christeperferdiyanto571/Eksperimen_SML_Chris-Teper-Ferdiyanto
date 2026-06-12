@@ -1,0 +1,46 @@
+name: Automated Preprocessing Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  preprocessing:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12.7'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas numpy scikit-learn
+
+    - name: Run Preprocessing Pipeline
+      run: |
+        cd preprocessing
+        python automate_Siswa.py
+
+    - name: Upload Preprocessed Dataset
+      uses: actions/upload-artifact@v4
+      with:
+        name: housing_preprocessing
+        path: preprocessing/housing_preprocessing/
+        retention-days: 30
+
+    - name: Commit and Push Preprocessed Data
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add preprocessing/housing_preprocessing/ preprocessing/housing_raw.csv || true
+        git diff --staged --quiet || git commit -m "Auto: Update preprocessed dataset [$(date +'%Y-%m-%d %H:%M:%S')]"
+        git push || true
