@@ -1,5 +1,5 @@
 """
-automate_Siswa.py
+automate_chris-teper-ferdiyanto.py
 Automated preprocessing pipeline untuk California Housing Dataset.
 Mengkonversi tahapan eksperimen pada notebook menjadi fungsi yang dapat dijalankan otomatis.
 """
