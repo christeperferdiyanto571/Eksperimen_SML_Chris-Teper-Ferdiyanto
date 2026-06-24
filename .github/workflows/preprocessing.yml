@@ -42,5 +42,5 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add preprocessing/housing_preprocessing/ || true
-        git diff --staged --quiet || git commit -m "Auto: Update preprocessed dataset [$(date +'%Y-%m-%d %H:%M:%S')]"
+        git diff --staged --quiet || git commit -m "Auto: Update preprocessed dataset"
         git push || true
