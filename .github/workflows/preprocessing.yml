@@ -28,7 +28,7 @@ jobs:
     - name: Run Preprocessing Pipeline
       run: |
         cd preprocessing
-         python automate_chris-teper-ferdiyanto.py
+        python automate_chris-teper-ferdiyanto.py
 
     - name: Upload Preprocessed Dataset
       uses: actions/upload-artifact@v4
